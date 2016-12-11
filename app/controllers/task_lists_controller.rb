@@ -10,6 +10,8 @@ class TaskListsController < ApplicationController
   # GET /task_lists/1
   # GET /task_lists/1.json
   def show
+   @tasks = Task.all
+   @task = Task.find(params[:id])
   end
 
   # GET /task_lists/new
@@ -66,6 +68,10 @@ class TaskListsController < ApplicationController
     def set_task_list
       @task_list = TaskList.find(params[:id])
     end
+    
+    
+      
+   
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_list_params
