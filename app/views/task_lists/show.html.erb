@@ -4,26 +4,41 @@
 <h>Description</h>
 <p><%= @task_list.description %></p><br>
 
-<h1>Listing Tasks</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    
-    <% @tasks.each do |task| %>
+<b>Listing Tasks : <%= @task_list.tasks.size %><b>
+<% if @task_list.tasks.size > 0 %>
+  <table class="table table-condensed" style="width: 500px;">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th class="text-center">Finished</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @task_list.tasks.each do |task| %>
       <tr>
         <td><%= task.name %></td>
-        
-        <td><%= link_to 'Edit', edit_task_list_task_path(@task, @task_list) %></td>
-        
+        <td class="text-center">
+          <% if task.finished %>
+          <span class="glyphicon glyphicon-ok" style="color:green"></span>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_task_list_task_path(@task_list, task)  do %> 
+          <span class="glyphicon glyphicon-edit"></span>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to task_list_task_path(@task_list, task), method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <span class="glyphicon glyphicon-trash" style="color:red"></span>
+          <% end %>
+        </td>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 <br>
 <%= link_to 'New Task', new_task_list_task_path(@task_list) %>

@@ -14,7 +14,8 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(task_params)
+    @task = Task.new(task_params) 
+    @task.task_list = @task_list
 
     respond_to do |format|
       if @task.save
@@ -46,7 +47,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
+      format.html { redirect_to @task_list, notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -63,6 +64,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.required(:task).permit(:name)
+      params.required(:task).permit(:name, :finished)
     end
 end

@@ -10,8 +10,6 @@ class TaskListsController < ApplicationController
   # GET /task_lists/1
   # GET /task_lists/1.json
   def show
-   @tasks = Task.all
-   @task = Task.find(params[:id])
   end
 
   # GET /task_lists/new
